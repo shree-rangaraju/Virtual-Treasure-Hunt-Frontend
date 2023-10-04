@@ -1,4 +1,6 @@
 import { createContext } from "react";
-export const serverURL = createContext(`http://192.168.76.241:3001/`);
+export const serverURL = createContext(
+  `https://treasurehunt-server.onrender.com/`
+);
 
 //localhost:3001
