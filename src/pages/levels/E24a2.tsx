@@ -9,24 +9,11 @@ export default function E24a2() {
   const URL = useContext(serverURL);
   const passcodeMessages = [
     "Oops, wrong password! Did you forget your morning coffee too?",
-    "Wrong password! Maybe try '12345' like in the movies.",
     "Password incorrect! Did you consult your pet for advice?",
     "Hmmm, wrong password. Your secret decoder ring must be malfunctioning.",
-    "Incorrect password! Are you sure you're not a robot trying to blend in?",
-    "Wrong password! You must have left your cat in charge of security.",
-    "Password incorrect! Did you try 'password123' as a joke?",
-    "Nope, that's not it! Maybe you're secretly a ninja with a secret code.",
-    "Wrong password! Try 'OpenSesame' next time - it might just work!",
     "Password incorrect! Have you been taking lessons from a toddler?",
-    "Oops, wrong password! You're not trying to hack into the secret cookie stash, are you?",
-    "Incorrect password! It's not 'admin' unless you're an admin of silliness.",
     "Wrong password! Are you sure you're not a cat trying to log in with your paw?",
     "Password incorrect! Did you try 'Igiveup123' as a backup?",
-    "Nope, not quite! But you're getting closer to the secrets of the universe.",
-    "Wrong password! Did you consult the Magic 8-Ball for guidance?",
-    "Incorrect password! You're not trying '0000' as a safety code, right?",
-    "Oops, wrong password! Did you put on your lucky socks today?",
-    "Password incorrect! It's not '12345678,' even though it's memorable.",
     "Hmmm...try shifting each letters by some same value...Hmm...",
   ];
   function getRandomPasscodeMessage() {

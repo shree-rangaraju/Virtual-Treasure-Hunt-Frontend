@@ -4,7 +4,7 @@ import QRCode from "qrcode.react";
 export default function E2622() {
   const [text, setText] = useState("");
   const [qrCodeValue, setQRCodeValue] = useState(
-    "Code: E463 , Clue: A factor to myself, none else do I engage, In numbers, Im a solitary stage."
+    "Code: E463 , Clue: A factor to myself, none else do I engage. I usually show up, when numbers divide itself."
   );
 
   const gibberishArray = [
