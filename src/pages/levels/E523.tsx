@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const NUM_DICE = 25;
-const TIME_LIMIT = 60;
+const TIME_LIMIT = 75;
 
 const gridStyle = {
   display: "grid",
