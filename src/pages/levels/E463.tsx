@@ -57,7 +57,7 @@ export default function E463() {
     if (inputDate === targetDate) {
       setFeedbackMessage("Congratulations! You won!");
       alert(
-        "You have sucessfully completed the level.\nClue: Nay, my sole companion be zero, in the realm of Computers."
+        "You have sucessfully completed the level.\nClue: I am a digit, my sole companion be zero, in the realm of Computers."
       );
       completed();
     } else {

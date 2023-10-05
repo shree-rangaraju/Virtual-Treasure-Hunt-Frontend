@@ -116,7 +116,7 @@ export default function E6e3() {
     if (gameState.matchedPairs.length === symbols.length * 2) {
       setIsGameComplete(true);
       alert(
-        "You have sucessfully completed the level.\nClue: I am a digit, oft symbolized by yonder index finger."
+        "You have sucessfully completed the level.\nClue: I am a digit, often symbolized by index finger."
       );
       completed();
     }
