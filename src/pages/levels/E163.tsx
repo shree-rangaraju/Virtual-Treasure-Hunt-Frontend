@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { serverURL } from "../../url";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ConfettiExplosion from "react-confetti-explosion";
 export default function E163() {
+  const navigate = useNavigate();
   const [isExploding, setIsExploding] = useState(false);
   const [isConfetti, setIsConfetti] = useState(false);
 
@@ -51,6 +53,10 @@ export default function E163() {
     }
     setInput((prevInput) => prevInput + key);
   };
+  function handleLogout() {
+    localStorage.clear();
+    navigate("/", { replace: true });
+  }
   const style = `
   .container,.miniContainer{
   display: flex;
@@ -111,6 +117,9 @@ export default function E163() {
             <>
               <h1>You have Completed!</h1>
               <img src="/icons8-treasure-64.png" alt="TreasureBoxOpened"></img>
+              <button type="button" onClick={handleLogout}>
+                Logout
+              </button>
             </>
           )}
           {!isConfetti && (
