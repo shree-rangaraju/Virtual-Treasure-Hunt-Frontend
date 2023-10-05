@@ -117,7 +117,9 @@ export default function E7a3() {
             alt="RuneCode"
             style={{ borderRadius: "5px", width: "250px" }}
           />
-          <p>Have you ever seen runes before?</p>
+          <p>
+            Have you ever seen runes before? Most significant letter matters.
+          </p>
           {isModalOpen && (
             <div className="modal">
               <div className="modalInner">
