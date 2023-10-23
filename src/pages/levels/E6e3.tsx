@@ -156,8 +156,8 @@ export default function E6e3() {
       gameState.matchedPairs.includes(index);
 
     const cardStyle: React.CSSProperties = {
-      width: "70px",
-      height: "70px",
+      width: "50px",
+      height: "50px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -184,40 +184,66 @@ export default function E6e3() {
     );
   };
 
-  const containerStyle: React.CSSProperties = {
-    textAlign: "center",
-    fontFamily: "Arial, sans-serif",
-  };
-
   const cardsGridStyle: React.CSSProperties = {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 70px)",
+    gridTemplateColumns: "repeat(4, 50px)",
     gap: "10px",
     marginTop: "20px",
     justifyContent: "center",
   };
 
+  const style = `
+  .container, .form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    textAlign: center;
+  }
+
+  .form{
+    width: 250px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 9px;
+  } 
+
+  .container{
+    min-height: 100vh;
+    background-color: #f0f0f0;
+  }
+
+  p{
+    margin-top: 0px;
+  }
+  `;
   return (
-    <div style={containerStyle} className="memory-game">
-      <h2>Where are you?</h2>
-      <p>Find pairs, before they get lost..again.</p>
-      {isGameComplete ? (
-        <div>
-          <h2>Congratulations! You've won!</h2>
-          <p>Game will automatically reset.</p>
+    <>
+      <style>{style}</style>
+      <div className="memory-game container">
+        <div className="form">
+          <h2>Where are you?</h2>
+          <p>Find pairs, before they get lost..again.</p>
+          {isGameComplete ? (
+            <div>
+              <h2>Congratulations! You've won!</h2>
+              <p>Game will automatically reset.</p>
+            </div>
+          ) : (
+            <div>
+              <div>
+                <p>Time left: {timer} seconds</p>
+              </div>
+              <div style={cardsGridStyle} className="cards">
+                {gameState.cards.map((card, index) =>
+                  renderCard(card.symbol, index)
+                )}
+              </div>
+            </div>
+          )}
         </div>
-      ) : (
-        <div>
-          <div>
-            <p>Time left: {timer} seconds</p>
-          </div>
-          <div style={cardsGridStyle} className="cards">
-            {gameState.cards.map((card, index) =>
-              renderCard(card.symbol, index)
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
