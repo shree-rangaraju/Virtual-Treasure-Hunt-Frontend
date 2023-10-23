@@ -1,4 +1,22 @@
-# React + TypeScript + Vite
+# Virtual Treasure Hunt Frontend
+
+The front-end code of the game "Virtual Treasure Hunt" conducted as a solo tech event for intra-college department function AEGIS, conducted by department of Electonics and Instrumentation Engineering, GCT.
+
+
+## Installation and Running locally
+
+Make sure you have installed Node.js
+
+```bash
+  git clone https://github.com/shree-rangaraju/Virtual-Treasure-Hunt-Frontend.git
+  cd Virtual-Treasure-Hunt-Frontend
+  npm i
+  npm run dev
+```
+
+This will start the live application at localhost:5173.
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
