@@ -31,11 +31,6 @@ interface Player {
 }
 
 export default function A0feef30() {
-  const tableStyles: React.CSSProperties = {
-    width: "100%",
-    borderCollapse: "collapse",
-  };
-
   const thStyles: React.CSSProperties = {
     backgroundColor: "#f2f2f2",
     padding: "8px",
@@ -48,6 +43,7 @@ export default function A0feef30() {
     textAlign: "left",
     border: "1px solid #ccc",
   };
+
   const greenBackground: React.CSSProperties = {
     backgroundColor: "#90EE90",
     color: "black",
@@ -66,35 +62,73 @@ export default function A0feef30() {
 
   const URL = useContext(serverURL);
   const [players, setPlayers] = useState<Player[]>([]);
+
+  const calculateTimeDifference = (start: Date, end: Date) => {
+    const hours = Math.abs(
+      new Date(end).getHours() - new Date(start).getHours()
+    );
+    const minutes = Math.abs(
+      new Date(end).getMinutes() - new Date(start).getMinutes()
+    );
+    const seconds = Math.abs(
+      new Date(end).getSeconds() - new Date(start).getSeconds()
+    );
+    return `${hours}h:${minutes}m:${seconds}s`;
+  };
+
+  const renderLevelCell = (
+    player: Player,
+    level: boolean,
+    duration: Date | undefined
+  ) => {
+    const cellStyle = getCellStyle(level, tdStyles);
+    return (
+      <td style={cellStyle}>
+        {level ? "Yes" : "No"}
+        <br />
+        {duration && calculateTimeDifference(player.start, duration)}
+      </td>
+    );
+  };
+
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       axios
         .post(`${URL}admin`)
         .then((res) => {
           setPlayers(res.data);
         })
-        .catch((err) => alert(`An error occured: ${err}`));
+        .catch((err) => console.error(`An error occurred: ${err.message}`));
     }, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
+
   return (
     <div>
       <h1>Players:</h1>
-      <table style={tableStyles}>
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
-            <th style={thStyles}>Name</th>
-            <th style={thStyles}>Roll No</th>
-            <th style={thStyles}>Level 1</th>
-            <th style={thStyles}>Level 2</th>
-            <th style={thStyles}>Level 3</th>
-            <th style={thStyles}>Level 4</th>
-            <th style={thStyles}>Level 5</th>
-            <th style={thStyles}>Level 6</th>
-            <th style={thStyles}>Level 7</th>
-            <th style={thStyles}>Level 8</th>
-            <th style={thStyles}>Start</th>
-            <th style={thStyles}>End</th>
-            <th style={thStyles}>Duration</th>
+            {[
+              "Name",
+              "Roll No",
+              "Level 1",
+              "Level 2",
+              "Level 3",
+              "Level 4",
+              "Level 5",
+              "Level 6",
+              "Level 7",
+              "Level 8",
+              "Start",
+              "End",
+              "Duration",
+            ].map((header, index) => (
+              <th key={index} style={thStyles}>
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody style={{ border: "1px solid black" }}>
@@ -102,142 +136,46 @@ export default function A0feef30() {
             <tr key={index}>
               <td style={tdStyles}>{player.name}</td>
               <td style={tdStyles}>{player.rollno}</td>
-              <td style={getCellStyle(player.levels.level1, tdStyles)}>
-                {player.levels.level1 ? "Yes" : "No"}
-                <br />
-                {player.duration.level1 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level1).getHours() -
-                      new Date(player.start).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level1).getMinutes() -
-                      new Date(player.start).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level1).getSeconds() -
-                      new Date(player.start).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level2, tdStyles)}>
-                {player.levels.level2 ? "Yes" : "No"}
-                <br />
-                {player.duration.level2 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level2).getHours() -
-                      new Date(player.duration.level1).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level2).getMinutes() -
-                      new Date(player.duration.level1).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level2).getSeconds() -
-                      new Date(player.duration.level1).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level3, tdStyles)}>
-                {player.levels.level3 ? "Yes" : "No"}
-                <br />
-                {player.duration.level3 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level3).getHours() -
-                      new Date(player.duration.level2).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level3).getMinutes() -
-                      new Date(player.duration.level2).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level3).getSeconds() -
-                      new Date(player.duration.level2).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level4, tdStyles)}>
-                {player.levels.level4 ? "Yes" : "No"}
-                <br />
-                {player.duration.level4 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level4).getHours() -
-                      new Date(player.duration.level3).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level4).getMinutes() -
-                      new Date(player.duration.level3).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level4).getSeconds() -
-                      new Date(player.duration.level3).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level5, tdStyles)}>
-                {player.levels.level5 ? "Yes" : "No"}
-                <br />
-                {player.duration.level5 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level5).getHours() -
-                      new Date(player.duration.level4).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level5).getMinutes() -
-                      new Date(player.duration.level4).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level5).getSeconds() -
-                      new Date(player.duration.level4).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level6, tdStyles)}>
-                {player.levels.level6 ? "Yes" : "No"}
-                <br />
-                {player.duration.level6 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level6).getHours() -
-                      new Date(player.duration.level5).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level6).getMinutes() -
-                      new Date(player.duration.level5).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level6).getSeconds() -
-                      new Date(player.duration.level5).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level7, tdStyles)}>
-                {player.levels.level7 ? "Yes" : "No"}
-                <br />
-                {player.duration.level7 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level7).getHours() -
-                      new Date(player.duration.level6).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level7).getMinutes() -
-                      new Date(player.duration.level6).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level7).getSeconds() -
-                      new Date(player.duration.level6).getSeconds()
-                  )}s
-                  `}
-              </td>
-              <td style={getCellStyle(player.levels.level8, tdStyles)}>
-                {player.levels.level8 ? "Yes" : "No"}
-                <br />
-                {player.duration.level8 &&
-                  `
-                  ${Math.abs(
-                    new Date(player.duration.level8).getHours() -
-                      new Date(player.duration.level7).getHours()
-                  )}h:${Math.abs(
-                    new Date(player.duration.level8).getMinutes() -
-                      new Date(player.duration.level7).getMinutes()
-                  )}m:${Math.abs(
-                    new Date(player.duration.level8).getSeconds() -
-                      new Date(player.duration.level7).getSeconds()
-                  )}s
-                  `}
-              </td>
+              {renderLevelCell(
+                player,
+                player.levels.level1,
+                player.duration.level1
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level2,
+                player.duration.level2
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level3,
+                player.duration.level3
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level4,
+                player.duration.level4
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level5,
+                player.duration.level5
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level6,
+                player.duration.level6
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level7,
+                player.duration.level7
+              )}
+              {renderLevelCell(
+                player,
+                player.levels.level8,
+                player.duration.level8
+              )}
               <td style={tdStyles}>
                 {player.start && `${new Date(player.start).toLocaleString()}`}
               </td>
@@ -247,12 +185,12 @@ export default function A0feef30() {
               <td style={tdStyles}>
                 {player.totalDuration &&
                   `
-              ${new Date(player.totalDuration).getUTCHours()}h:${new Date(
+                  ${new Date(player.totalDuration).getUTCHours()}h:${new Date(
                     player.totalDuration
                   ).getUTCMinutes()}m:${new Date(
                     player.totalDuration
                   ).getUTCSeconds()}s
-              `}
+                  `}
               </td>
             </tr>
           ))}
